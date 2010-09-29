@@ -36,4 +36,3 @@ for s in DISPATCHER:
         print "Error importing %s" % s
 
 sys.path.append('%s/apps/' % PROJECT_PATH)
-sys.path.append('%s/libs/' % PROJECT_PATH)
