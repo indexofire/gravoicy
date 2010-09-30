@@ -11,10 +11,10 @@ MANAGERS = ADMINS
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = False
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'media/')
+
 MEDIA_URL = '/media/'
 ADMIN_MEDIA_PREFIX = '/media/admin/'
-SECRET_KEY = '1F=(lta=1R9je3ze@g#fa^m#hJu^mv%@8+%fZ5p)*1$(*tvbh6'
+
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
@@ -47,5 +47,6 @@ INSTALLED_APPS = (
 )
 THEME_PATH = 'default/'
 TEMPLATE_DIRS = (
-    os.path.join(PROJECT_PATH, 'templates/%s' % THEME_PATH),
+    os.path.join(PROJECT_PATH, 'templates/%s/templates/' % THEME_PATH),
 )
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'templates/%s/media/' % THEME_PATH)
