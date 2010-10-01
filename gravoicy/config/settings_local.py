@@ -30,11 +30,12 @@ INSTALLED_APPS += (
     'registration',
     'taggit',
     #'voting',
-    'blog',
+    #'blog',
     #'forum',
     'cms',
     #'wiki',
     'debug_toolbar',
+    #'redis_sessions',
 )
 
-#SESSION_ENGINE = 'utils.sessions.backends.redis_session'
+SESSION_ENGINE = 'utils.sessions.backends.redis'
