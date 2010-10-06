@@ -1,0 +1,6 @@
+django-taggit
+django-registration
+
+
+docutils
+pygments

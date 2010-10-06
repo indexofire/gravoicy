@@ -1,0 +1,66 @@
+DjangoCon 2010 Talk: Django ORM Tips (Tareque Hossain)
+1. values_list
+category_choices = [(x.id, x.title) for x in Category.objects.all()]
+category_choices = Category.objects.values_list('id', 'title')
+2. only
+"""Template Code"""
+{% for user in selected_users %}
+    <p>Name: {{ user.first_name }} {{ user.last_name }}</p>
+    <p>Email: {{ user.email }}</p>
+{% endfor %}
+"""View Code"""
+selected_users = User.objects.filter('selected_options...').only('first_name', 'last_name', 'email').iterator()
+3. select_related
+"""Template Code"""
+{% for organization in selected_organization %}
+    <p>Title: {{ organization.title }}</p>
+    <p>Owner Email: {{ organization.account.owner.email }}</p>
+{% endfor %}
+"""View Code"""
+selected_organization = Organization.objects.filter('...').select_related('title', 'account__owner__email')
+--------------------------------------------------------------------------------
+Use context
+1. Templates have known performance weaknesses
+2. Know your templates (what data/ variables are in use?) and prepare data in view
+3. Context is passed between views and templates for a reason
+4. Minimize queryset evaluations and ORM calls in templates
+5. Template tags are nice, but will slow you down if you are making ORM calls
+--------------------------------------------------------------------------------
+Use count()
+"""Old Style"""
+if Organization.objects.filter('...'):
+...
+"""Django 1.2"""
+if Organization.objects.filter('...').exists():
+
+organization_count = Organization.objects.filter('...').count()
+if organization_count:
+
+1. len(QuerySet) is not a good idea
+2. Evaluating full querysets for boolean values is wasteful
+3. Don’t retrieve objects if you don’t use them
+4. Use count and save it if you plan to use it later
+--------------------------------------------------------------------------------
+Indices
+1. Index will not magically solve your problem
+2. Creating index requires a lot of space and may be expensive
+3. DB will read ALL index data in addition to reading the table data
+4. So don’t just go around creating index for each field in your model
+5. Fields (columns) that will have nearly unique values are better candidates (pk/ unique auto)
+6. Which fields appear in your filters most?
+--------------------------------------------------------------------------------
+Order By
+1. Looks naive, but the DB will go crazy trying to sort your data
+2. Indices help in increasing order_by performance significantly
+3. Indices may not be used for sorting if you order by multiple fields even if they’re indices
+4. Indices may not be used for sorting if you mix ascending and descending filters
+--------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
