@@ -60,3 +60,5 @@ FORUM_CTX_CONFIG = {
     'TOPIC_PAGE_SIZE': 2,
 }
 MARKUP_CODE_HIGHTLIGHT = True
+
+MARKITUP_JS_URL = '/media/markitup/sets/default/set.js'

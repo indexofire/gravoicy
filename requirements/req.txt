@@ -5,6 +5,9 @@ django-registration
 docutils
 pygments
 postmarkup
-python-markdown2
+markdown
 textile
 BeautifulSoup
+
+cElementTree
+ElementTree

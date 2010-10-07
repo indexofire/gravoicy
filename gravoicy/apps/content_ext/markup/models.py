@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.db import models
 from django.conf import settings
+from django.template import TemplateSyntaxError
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.safestring import mark_safe
+from content_ext.markup.forms import MarkupContentAdminForm
 
 
 def restructuredtext(value):
@@ -16,8 +18,8 @@ def restructuredtext(value):
         from content_ext.markup.directives.code import CodeHighlight
     except ImportError:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError("Error in content type: The "
-                "Python docutils library isn't installed.")
+            raise TemplateSyntaxError("Error in content type: The Python "
+                "docutils library isn't installed.")
         return force_unicode(value)
     else:
         docutils_settings = getattr(settings,
@@ -28,7 +30,7 @@ def restructuredtext(value):
             settings_overrides=docutils_settings,)
         return mark_safe(force_unicode(parts["html_body"]))
 
-def markdown2(value):
+def markdown(value):
     """
     Runs Markdown over a given value, optionally using various
     extensions python-markdown supports.
@@ -46,11 +48,11 @@ def markdown2(value):
 
     """
     try:
-        import markdown2
+        import markdown
     except ImportError:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError, "Error in content type: The \
-                python-markdown2 library isn't installed."
+            raise TemplateSyntaxError("Error in content type: The "
+                "Markdown library isn't installed.")
         return force_unicode(value)
     else:
         def parse_extra(extra):
@@ -60,20 +62,17 @@ def markdown2(value):
             values = dict((str(val.strip()), True) for val in \
                 values.split('|'))
             return (name.strip(), values)
-        arg = ['']
+        extensions = ['']
         if settings.MARKUP_CODE_HIGHTLIGHT:
-            arg[-1] ='codehilite(force_linenos=True)'
-        extras = (e.strip() for e in arg.split(','))
-        extras = dict(parse_extra(e) for e in extras if e)
-
-        if 'safe' in extras:
-            del extras['safe']
-            safe_mode = True
-        else:
-            safe_mode = False
-
-        return mark_safe(markdown2.markdown(force_unicode(value),
-            extras=extras, safe_mode=safe_mode))
+            extensions =['codehilite(force_linenos=True)']
+        #extras = (e.strip() for e in arg.split(','))
+        #extras = dict(parse_extra(e) for e in extras if e)
+        #if 'safe' in extras:
+        #    del extras['safe']
+        #    safe_mode = True
+        #else:
+        #    safe_mode = False
+        return mark_safe(markdown.markdown(force_unicode(value), extensions))
 
 def textile(value):
     """
@@ -83,7 +82,7 @@ def textile(value):
         import textile
     except ImportError:
         if settings.DEBUG:
-            raise template.TemplateSyntaxError("Error in content type: The "
+            raise TemplateSyntaxError("Error in content type: The "
                 "Python textile library isn't installed.")
         return force_unicode(value)
     else:
@@ -103,7 +102,16 @@ class MarkupContent(models.Model):
     markup = models.TextField(_("Markup Text"), blank=False)
     markup_type = models.CharField(max_length=10, blank=False,
         choices=MARKUP_CHOICE)
-    markup_html = models.TextField(editable=False, blank=False)
+    markup_html = models.TextField( blank=False)
+
+    form = MarkupContentAdminForm
+    feincms_item_editor_form = MarkupContentAdminForm
+    #feincms_item_editor_context_processors = (
+    #    lambda x: dict(MARKITUP_JS_URL = settings.MARKITUP_JS_URL),
+    #)
+    #feincms_item_editor_includes = {
+    #    'head': [ 'settings.MARKITUP_CONFIG_URL', ],
+    #}
 
     class Meta:
         abstract = True
@@ -118,12 +126,10 @@ class MarkupContent(models.Model):
         if type == 'rst':
             convert = restructuredtext(value)
         elif type == 'markdown':
-            convert = markdown2(value)
+            convert = markdown(value)
         elif type == 'textile':
             convert = textile(value)
-
         return convert
 
     def render(self, **kwargs):
         return self.markup_html
-

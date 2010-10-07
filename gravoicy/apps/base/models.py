@@ -7,6 +7,7 @@ from feincms.content.richtext.models import RichTextContent
 from feincms.content.image.models import ImageContent
 from feincms.content.raw.models import RawContent
 from feincms.content.file.models import FileContent
+#from feincms.content.contactform.models import ContactForm
 #from feincms.content.rss.models import RSSContent
 #from feincms.content.section.models import SectionContent
 from content_ext.markup.models import MarkupContent
@@ -62,6 +63,7 @@ Page.create_content_type(RichTextContent)
 Page.create_content_type(RawContent)
 Page.create_content_type(FileContent)
 Page.create_content_type(MarkupContent)
+#Page.create_content_type(ContactForm)
 #Page.create_content_type(RSSContent)
 #Page.create_content_type(SectionContent)
 Page.create_content_type(

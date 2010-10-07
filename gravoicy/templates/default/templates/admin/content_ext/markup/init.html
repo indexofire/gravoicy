@@ -1,0 +1,66 @@
+<script type="text/javascript" src="{{ MEDIA_URL }}markitup/jquery.markitup.js"></script>
+<script type="text/javascript" src="{{ MEDIA_URL }}markitup/sets/restructuredtext/set.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}markitup/skins/simple/style.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}markitup/sets/restructuredtext/style.css" />
+<link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}cmsplugin_rst/css/cmsplugin_rst.css" />
+<script type="text/javascript" src="{{ MEDIA_URL }}js/jquery.simplemodal-1.3.5.min.js"></script>
+
+<script language="javascript">
+$(document).ready(function()	{
+    $('#markItUp').markItUp(myReSTSettings);
+
+    $('#addcode').click(function() {
+        code = $('#code').val();
+        $.markItUp({openWith:'.. code:: [![Your Code Lexar:!:python]!]\n   [![If You Do not Need Line Numbers, Leave BLANK here:!::linenos:]!]\n\n   ', placeHolder:code.split('\n').join("\n   ")});
+        return false;
+    });
+});
+</script>
+
+<!-- script to autoresize iframe of plugin -->
+<script type="text/javascript">
+//<![CDATA[
+(function($) {
+	function runOnLoad(f) {
+		if (runOnLoad.loaded){
+			f();
+		}else{
+			runOnLoad.funcs.push(f);
+		}
+	}
+	runOnLoad.funcs = [];
+	runOnLoad.loaded = false;
+	runOnLoad.run = function() {
+		if (runOnLoad.loaded) return;
+
+		for(var i = 0; i < runOnLoad.funcs.length; i++) {
+			try {
+				runOnLoad.funcs[i]();
+			}catch(e) { }
+		}
+		runOnLoad.loaded = true;
+		delete runOnLoad.funcs;
+		delete runOnLoad.run;
+	};
+	if (window.addEventListener){
+		window.addEventListener("load", runOnLoad.run, false);
+	}else if (window.attachEvent){
+		window.attachEvent("onload", runOnLoad.run);
+	}else{
+		window.onload = runOnLoad.run;
+	}
+	runOnLoad(function(){
+		parent.setiframeheight($('body').height()+20, {{ plugin.pk }});
+	});
+	$(document).ready(function(){
+		$("a.add-another,a.related-lookup").each(function(i, sign){
+			var href = $(sign).attr("href")
+			if (href.substr(0,2) == ".."){
+				href = "../../"+href
+				$(sign).attr("href", href);
+			}
+		});
+	});
+})(jQuery);
+//]]>
+</script>
