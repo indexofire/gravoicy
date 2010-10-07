@@ -1,0 +1,20 @@
+{% extends "userprofile/profile_base.html" %}
+{% load i18n %}
+
+{% block title %}Profile Create for {{ request.user.username }}{% endblock %}
+
+{% block breadcrumb %}{{ block.super }}
+<li>
+  <strong><a href="{% url profile_list %}">{% trans "profile list" %}</a></strong>
+</li>
+<li>
+  <span>{% trans "create your profile" %}</span>
+</li>
+{% endblock breadcrumb %}
+
+{% block profile %}
+<form action="{% url profile_create %}" method="POST">{% csrf_token %}
+{{ form.as_p }}
+<input type="submit" name="post" value="{% trans 'post' %}" />
+</form>
+{% endblock profile %}

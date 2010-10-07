@@ -24,7 +24,11 @@ INTERNAL_IPS = (
     '127.0.0.1',
 )
 MIDDLEWARE_CLASSES += (
+    'pagination.middleware.PaginationMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+)
+TEMPLATE_CONTEXT_PROCESSORS += (
+    'forum.context_processors.page_size',
 )
 INSTALLED_APPS += (
     'registration',
@@ -32,7 +36,7 @@ INSTALLED_APPS += (
     #'taggit',
     #'voting',
     'blog',
-    #'forum',
+    'forum',
     'cms',
     #'wiki',
     'debug_toolbar',
@@ -41,7 +45,18 @@ INSTALLED_APPS += (
     'feincms.module.page',
     #'feincms.module.medialibrary',
     'mptt',
-    'content_ext',
+    'attachments',
+    'simpleavatar',
+    'userprofile',
+    'pagination',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'
+
+FORUM_CTX_CONFIG = {
+    'FORUM_TITLE': 'HZCDCLabs Forum',
+    'FORUM_SUB_TITLE': '',
+    'FORUM_PAGE_SIZE': 50,
+    'TOPIC_PAGE_SIZE': 2,
+}
+MARKUP_CODE_HIGHTLIGHT = True

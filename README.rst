@@ -2,22 +2,4 @@
 gravoicy
 ================================================================================
 
-This is a project written after learning alex gaynor's slides on djangocon 2010.
-
-
-django app in libs:
-********************************************************************************
-
-1. Tags:
---------------------------------------------------------------------------------
-
-django-taggit__ :
-
-.. __http://github.com/alex/django-taggit
-
-2. Voting:
---------------------------------------------------------------------------------
-
-django-voting__ :
-
-.. __http://github.com/brosner/django-voting
+This is a project based on feincms.

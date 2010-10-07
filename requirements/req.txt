@@ -4,3 +4,7 @@ django-registration
 
 docutils
 pygments
+postmarkup
+python-markdown2
+textile
+BeautifulSoup
