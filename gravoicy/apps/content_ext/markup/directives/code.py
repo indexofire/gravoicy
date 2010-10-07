@@ -40,7 +40,7 @@ class CodeHighlight(Directive):
 
     # define default options
     defaults = {
-        'linenos' : False,
+        'linenos' : True,
         'style' : 'default',
         'noclasses' : False,
     }
@@ -68,4 +68,4 @@ class CodeHighlight(Directive):
         # overrides.update(self.controller.state)
         overrides.update(self.options)
         highlighted_text = highlight(text, lexer, HtmlFormatter(**overrides))
-        return [nodes.raw('', highlighted_text, format='html')]
+        return [nodes.raw('', highlighted_text, format = 'html')]

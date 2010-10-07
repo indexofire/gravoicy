@@ -2,6 +2,7 @@
 from django.db import models
 from django.conf import settings
 from django.template import TemplateSyntaxError
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.safestring import mark_safe
@@ -132,4 +133,6 @@ class MarkupContent(models.Model):
         return convert
 
     def render(self, **kwargs):
-        return self.markup_html
+        request = kwargs.get('request')
+        return render_to_string('content_ext/markup/default.html',
+            { 'content': self, 'request': request },)

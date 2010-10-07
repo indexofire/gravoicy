@@ -18,6 +18,7 @@ class MarkItUpWidget(Textarea):
             'markitup/sets/textile/set.js',
             'markitup/sets/markdown/set.js',
             'markitup/setting.js',
+            'markup/js/jquery.simplemodal-1.3.5.js',
         )
         css = {
             'all': (
@@ -38,8 +39,12 @@ class MarkItUpWidget(Textarea):
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, name=name)
-        return mark_safe(u'<textarea class="multiSet" %s>%s</textarea>'
-            % (flatatt(final_attrs), conditional_escape(force_unicode(value))))
+        codebox = '''<div id="codebox" style="z-index: 11; opacity: 1; display: none;" >
+              <h3>Code Input</h3>
+              <textarea cols="80" rows="24" id="code"></textarea><p><a href="" id="addcode">add to markItUp</a></p>
+            </div>'''
+        return mark_safe(u'<textarea class="multiSet" %s>%s</textarea>%s'
+            % (flatatt(final_attrs), conditional_escape(force_unicode(value)), codebox))
 
 
 #class AdminMarkItUpWidget(MarkItUpWidget, AdminTextareaWidget):

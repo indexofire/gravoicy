@@ -31,7 +31,7 @@ myRestructuredTextSettings = {
         {name:'Picture', key:'P', openWith:'.. image:: ', placeHolder:'Link Your Images Here...'},
         {name:'Link', key:"L", openWith:'`', closeWith:'`_ \n\n.. _`Link Name`: [![Url:!:http://]!]', placeHolder:'Link Name' },
         {name:'Content', openWith:'.. contents:: [![Contents Title]!]\n   [![Define title depth level:!::depth:]!]\n\n'},
-        {name:'Code', beforeInsert:function() { $('#codebox').modal(); } },
+        {name:'Code', beforeInsert:function() { django.jQuery('#codebox').modal(); } },
         //{name:'Preview', call:'preview', className:"preview"},
 	]
 }
@@ -47,3 +47,11 @@ miu = {
 		return '\n'+heading;
 	}
 }
+
+django.jQuery(document).ready(function()	{
+    django.jQuery('#addcode').click(function() {
+        code = django.jQuery('#code').val();
+        $.markItUp({openWith:'.. code:: [![Your Code Lexar:!:python]!]\n   [![If You Do not Need Line Numbers, Leave BLANK here:!::linenos:]!]\n\n   ', placeHolder:code.split('\n').join("\n   ")});
+        return false;
+    });
+});
