@@ -38,13 +38,8 @@ class MarkItUpWidget(Textarea):
         if value is None:
             value = ''
         final_attrs = self.build_attrs(attrs, name=name)
-        insert = '''<ul class="switcher">
-            <li class="restructuredtext"><a href="#">Restructured Text</a></li>
-            <li class="textile"><a href="#">Textile</a></li>
-            <li class="markdown"><a href="#">MarkDown</a></li>
-            </ul>'''
-        return mark_safe(u'%s<textarea class="multiSet" %s>%s</textarea>'
-            % (insert, flatatt(final_attrs), conditional_escape(force_unicode(value))))
+        return mark_safe(u'<textarea class="multiSet" %s>%s</textarea>'
+            % (flatatt(final_attrs), conditional_escape(force_unicode(value))))
 
 
 #class AdminMarkItUpWidget(MarkItUpWidget, AdminTextareaWidget):

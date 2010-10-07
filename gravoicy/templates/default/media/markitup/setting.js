@@ -1,20 +1,19 @@
 django.jQuery(document).ready(function() {
-    django.jQuery('.multiSet').markItUp(myRestructuredTextSettings);
-
-    django.jQuery('.switcher li').click(function() {
-            django.jQuery('.multiSet').markItUpRemove();
-            newSet = $(this).attr('class');
-            switch(newSet) {
-                case 'textile':
-                    django.jQuery('.multiSet').markItUp(myTextileSettings);
-                    break;
-                case 'markdown':
-                    django.jQuery('.multiSet').markItUp(myMarkdownSettings);
-                    break;
-                case 'restructuredtext':
-                    django.jQuery('.multiSet').markItUp(myRestructuredTextSettings);
-            }
-            return false;
+    django.jQuery("select[name^='markupcontent_set-']").change(function() {
+        var id = django.jQuery(this).attr('id').replace('id_markupcontent_set-', '').replace('-markup_type','');
+        var type = django.jQuery(this).val();
+        var attr = 'textarea#id_markupcontent_set-' + id + '-markup';
+        django.jQuery(attr).markItUpRemove();
+        switch(type) {
+            case 'textile':
+                django.jQuery(attr).markItUp(myTextileSettings);
+                break;
+            case 'markdown':
+                django.jQuery(attr).markItUp(myMarkdownSettings);
+                break;
+            case 'rst':
+                django.jQuery(attr).markItUp(myRestructuredTextSettings);
         }
-    );
+        return false;
+    });
 });
