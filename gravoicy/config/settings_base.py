@@ -30,7 +30,6 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'apps.base.context_processors.base_context',
 )
 ROOT_URLCONF = 'gravoicy.urls'
-SITE_NAME = 'HZCDC*Labs'
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

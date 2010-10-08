@@ -60,6 +60,7 @@ FORUM_CTX_CONFIG = {
     'FORUM_PAGE_SIZE': 50,
     'TOPIC_PAGE_SIZE': 2,
 }
+SITE_NAME = 'HZCDC'
+SITE_SUB_NAME = 'Labs'
 MARKUP_CODE_HIGHTLIGHT = True
-
 MARKITUP_JS_URL = '/media/markitup/sets/default/set.js'

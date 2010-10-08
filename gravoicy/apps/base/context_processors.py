@@ -7,4 +7,5 @@ def base_context(request):
     """
     return {
         'SITE_NAME': settings.SITE_NAME,
+        'SITE_SUB_NAME': settings.SITE_SUB_NAME,
     }
