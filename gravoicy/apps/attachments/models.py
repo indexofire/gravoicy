@@ -30,10 +30,10 @@ def get_filename(filename):
 
 
 class Attachment(models.Model):
-    user = models.ForeignKey(User, verbose_name=_('Attachment'))
+    user = models.ForeignKey(User, verbose_name=_('Attachment Owner'))
     file = models.FileField(max_length=255, upload_to=upload_attachment_file_path)
     org_filename = models.TextField()
-    description = models.TextField(default = '', blank=True)
+    description = models.TextField(default='', blank=True)
     activated = models.BooleanField(default=False)
     date_uploaded = models.DateTimeField(auto_now_add=True)
     #TODO remove file no delete

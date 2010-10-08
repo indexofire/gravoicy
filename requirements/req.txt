@@ -1,6 +1,6 @@
 django-taggit
 django-registration
-
+django-pagination
 
 docutils
 pygments
@@ -11,3 +11,7 @@ BeautifulSoup
 
 cElementTree
 ElementTree
+
+
+django-debug-toolbar
+PIL

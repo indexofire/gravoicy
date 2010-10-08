@@ -19,6 +19,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     url(r'^preview/(?P<page_id>\d+)/', 'feincms.views.base.preview_handler',
         name='feincms:preview'),
+    (r'^attachment/', include('attachments.urls')),
     # This entry is here strictly for application content testing
     # XXX this really needs to go into a URLconf file which is only used by the
     # application content testcases

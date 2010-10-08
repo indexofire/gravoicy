@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
-from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.csrf.middleware import csrf_exempt
 from djangohelper.helper import ajax_login_required, json_response
-from forms import AttachmentForm
-from models import Attachment
+from attachments.forms import AttachmentForm
+from attachments.models import Attachment
 
 
 @csrf_exempt

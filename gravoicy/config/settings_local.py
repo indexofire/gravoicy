@@ -37,7 +37,7 @@ INSTALLED_APPS += (
     #'voting',
     'blog',
     'forum',
-    'cms',
+    #'cms',
     #'wiki',
     'debug_toolbar',
     #'redis_sessions',
@@ -49,6 +49,7 @@ INSTALLED_APPS += (
     'simpleavatar',
     'userprofile',
     'pagination',
+    'djangohelper',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'
