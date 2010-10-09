@@ -2,7 +2,8 @@
 from django.utils.translation import ugettext
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.csrf.middleware import csrf_exempt
-from djangohelper.helper import ajax_login_required, json_response
+from utils.views import json_response
+from utils.views.decorators import ajax_login_required
 from attachments.forms import AttachmentForm
 from attachments.models import Attachment
 

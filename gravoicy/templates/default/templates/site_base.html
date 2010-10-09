@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 {% load applicationcontent_tags feincms_tags feincms_page_tags %}
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="{{ LANGUAGE_CODE }}" lang="{{ LANGUAGE_CODE }}">
+<html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{{ feincms_page.title }}{% endblock title %}</title>
     {% block meta %}{% endblock meta %}
-    <link rel="stylesheet" type="css/text" href="{{ MEDIA_URL }}global/css/site_base.css" />
+    <link rel="stylesheet" type="text/css" href="{{ MEDIA_URL }}global/css/site_base.css" />
     {% block extra_head %}{% endblock extra_head %}
 </head>
 
@@ -28,16 +28,16 @@
         </div>
     </div>
 </div>
-<div style="background:#eee; border-bottom:1px solid #CCC">
-<div class="container clear"><div style="padding: 20px 0px">fdasfd</div></div>
+
+<div id="header_sub">
+    <div class="container clear">
+        <div id="place">test</div>
+    </div>
 </div>
+
 <div class="container clear">
     <div class="content">{% block content %}{% endblock content %}</div>
 </div>
 
-
-<div id="footer" class="clearfix">
-    <div class="container">footer</div>
-</div>
 </body>
 </html>

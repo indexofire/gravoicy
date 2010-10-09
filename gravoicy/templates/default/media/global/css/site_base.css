@@ -72,6 +72,7 @@ a {
 a:hover {
     text-decoration: underline;
 }
+.container{width: 950px;margin: 0 auto;}
 .span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10, .span-11, .span-12, .span-13, .span-14, .span-15, .span-16, .span-17, .span-18, .span-19, .span-20, .span-21, .span-22, .span-23, .span-24 {float:left;margin-right:10px;}
 .last {margin-right:0;}
 .span-1 {width:30px;}
@@ -102,15 +103,12 @@ a:hover {
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 .last {margin-right:0;}
+/* start */
 body {
     background: #FFF;
     margin: 0;
     font-family: "Helvetica Neue", Arial, Helvetica, 雅黑, simsun, sans-serif;
     font-size: 80%;
-}
-.container {
-    width: 950px;
-    margin: 0 auto;
 }
 /* header */
 /*
@@ -181,6 +179,13 @@ body {
     -moz-border-radius-topleft: 4px;
     -moz-border-radius-topright: 4px;
     text-decoration: none;
+}
+#header_sub {
+    background: #EEE;
+    border-bottom: 1px solid #CCC;
+}
+#place {
+    padding: 20px 0px;
 }
 #user_panel {
     background: #58585D;
@@ -376,6 +381,7 @@ body {
     font-size: 12px;
     line-height: 16px;
     padding: 10px;
+    margin: 0;
 }
 .cell_head {
     border-top: 0px;

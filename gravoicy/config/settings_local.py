@@ -43,13 +43,12 @@ INSTALLED_APPS += (
     #'redis_sessions',
     'feincms',
     'feincms.module.page',
-    #'feincms.module.medialibrary',
+    'feincms.module.medialibrary',
     'mptt',
     'attachments',
     'simpleavatar',
     'userprofile',
     'pagination',
-    'djangohelper',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'
