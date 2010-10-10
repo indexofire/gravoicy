@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 from django.http import HttpResponse
-from django.utils import simplejson
+try:
+    import simplejson
+except:
+    from django.utils import simplejson
 
 
 def json_response(data):

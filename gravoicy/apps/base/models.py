@@ -11,6 +11,7 @@ from feincms.content.file.models import FileContent
 #from feincms.content.rss.models import RSSContent
 #from feincms.content.section.models import SectionContent
 from content_ext.markup.models import MarkupContent
+from content_ext.chart.models import HighCharts
 
 
 # Example set of extensions
@@ -38,7 +39,7 @@ Page.register_templates(
         'path': 'col_two.html',
         'regions': (
             ('main', _('Main content area')),
-            ('sidebar', _('Sidebar'), 'inherited'),
+            ('right', _('Right'), 'inherited'),
         ),
     },
     {
@@ -63,6 +64,7 @@ Page.create_content_type(RichTextContent)
 Page.create_content_type(RawContent)
 Page.create_content_type(FileContent)
 Page.create_content_type(MarkupContent)
+Page.create_content_type(HighCharts)
 #Page.create_content_type(ContactForm)
 #Page.create_content_type(RSSContent)
 #Page.create_content_type(SectionContent)
