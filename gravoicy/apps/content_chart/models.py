@@ -30,14 +30,14 @@ class HighCharts(models.Model):
     height = models.PositiveIntegerField(default=400)
     width = models.PositiveIntegerField(default=480)
     type = models.CharField(max_length=20, choices=CHARTS_TYPE)
-    data = models.TextField()
-    title = models.CharField(max_length=255, blank=True)
-    subtitle = models.CharField(max_length=255, blank=True)
+    data = models.TextField(blank=True)
+    title = models.TextField(blank=True)
+    subtitle = models.TextField(blank=True)
     x = models.TextField(blank=True)
     y = models.TextField(blank=True)
     tooltip = models.TextField(blank=True)
     plot_options = models.TextField(blank=True)
-    #other = models.TextField(blank=True)
+    other = models.TextField(blank=True)
 
     class Meta:
         abstract = True
@@ -47,7 +47,7 @@ class HighCharts(models.Model):
 
     def render(self, **kwargs):
         request = kwargs.get('request')
-        content = "chart:{renderTo: 'chart', defaultSeriesType: '%s'},\n" % self.type
+        content = "chart:{renderTo: 'chart_%s', defaultSeriesType: '%s'},\n" % (self.id, self.type)
         content += "xAxis:{%s},\n" % self.x
         content += "yAxis:{%s},\n" % self.y
         content += "tooltip:{%s},\n" % self.tooltip
@@ -55,5 +55,5 @@ class HighCharts(models.Model):
         content += "series:[%s],\n" % self.data
         content += "title:{text:'%s'},\n" % self.title
         content += "subtitle:{text:'%s'},\n" % self.subtitle
-        return render_to_string('content_ext/chart/default.html',
-            {'content': mark_safe(content), 'request': request})
+        return render_to_string('content_chart/default.html',
+            {'content': mark_safe(content), 'request': request, 'id': self.id},)

@@ -10,8 +10,9 @@ from feincms.content.file.models import FileContent
 #from feincms.content.contactform.models import ContactForm
 #from feincms.content.rss.models import RSSContent
 #from feincms.content.section.models import SectionContent
-from content_ext.markup.models import MarkupContent
-from content_ext.chart.models import HighCharts
+from content_markup.models import MarkupContent
+from content_chart.models import HighCharts
+from content_googlemap.models import GoogleMaps
 
 
 # Example set of extensions
@@ -65,6 +66,7 @@ Page.create_content_type(RawContent)
 Page.create_content_type(FileContent)
 Page.create_content_type(MarkupContent)
 Page.create_content_type(HighCharts)
+Page.create_content_type(GoogleMaps)
 #Page.create_content_type(ContactForm)
 #Page.create_content_type(RSSContent)
 #Page.create_content_type(SectionContent)

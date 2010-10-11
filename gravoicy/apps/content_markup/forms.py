@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-#from content_ext.markup.models import MarkupContent
+#from content_markup.models import MarkupContent
 from utils.forms.widgets import markitup
 from feincms.admin.editor import ItemEditorForm
 

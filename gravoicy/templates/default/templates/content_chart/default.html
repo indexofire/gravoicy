@@ -1,11 +1,14 @@
 <script type="text/javascript" src="/media/highcharts/highcharts.js"></script>
 <script>
-var chart;
+var chart_{{ id }};
 $(document).ready(function() {
-    chart = new Highcharts.Chart({
+    chart_{{ id }} = new Highcharts.Chart({
         {{ content }}
     });
 });
 </script>
 
-<div id="chart"></div>
+
+<div id="chart_{{ id }}"></div>
+
+
