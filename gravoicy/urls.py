@@ -7,11 +7,13 @@ from django.views.generic.simple import redirect_to
 from django.contrib import admin
 from settings import PROJECT_PATH
 
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^favicon\.ico$', redirect_to, {'url': '/media/favicon.ico'}),
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^avatar/', include('avatar.urls')),
     (r'^member/', include('userprofile.urls')),
     # the FeinCMS frontend editing:
     url(r'admin/page/page/jsi18n/', 'django.views.generic.simple.redirect_to',

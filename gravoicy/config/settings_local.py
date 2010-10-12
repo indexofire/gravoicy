@@ -46,7 +46,8 @@ INSTALLED_APPS += (
     'feincms.module.medialibrary',
     'mptt',
     'attachments',
-    'simpleavatar',
+    #'simpleavatar',
+    'avatar',
     'userprofile',
     'pagination',
 )

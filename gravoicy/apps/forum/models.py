@@ -4,15 +4,13 @@ try:
     import cPickle as pickle
 except:
     import pickle
-
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
-from django.db.models.signals import post_save
 from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum
-
 from forum.settings import *
+from forum.managers import TopicManager
 from attachments.models import Attachment
 
 
@@ -23,16 +21,18 @@ __all__ = [
     'ForumUserProfile',
     'Post',
     'Topic',
-    'TopicManager',
 ]
 
 class Config(models.Model):
-    key = models.CharField(max_length = 255)
-    value = models.CharField(max_length = 255)
+    key = models.CharField(max_length=255)
+    value = models.CharField(max_length=255)
 
 class ForumCategory(models.Model):
-    name = models.CharField(max_length = 100)
-    description = models.TextField(default = '')
+    """
+    Forum Category Model
+    """
+    name = models.CharField(max_length=100)
+    description = models.TextField(default='Category Description')
     ordering = models.PositiveIntegerField(default=1)    
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(blank=True, null=True)
@@ -44,29 +44,33 @@ class ForumCategory(models.Model):
         
     def __unicode__(self):
         return self.name
-    
+
 class Forum(models.Model):
-    name = models.CharField(max_length = 100)
-    slug = models.SlugField(max_length = 110)
-    description = models.TextField(default = '')
-    ordering = models.PositiveIntegerField(default = 1)
+    """
+    Forum Model
+    """
+    name = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255)
+    description = models.TextField(default='Forum Desctiption')
+    ordering = models.PositiveIntegerField(default=1)
     category = models.ForeignKey(ForumCategory)
-    created_on = models.DateTimeField(auto_now_add = True)
-    updated_on = models.DateTimeField(blank = True, null = True)
-    num_topics = models.IntegerField(default = 0)
-    num_posts = models.IntegerField(default = 0)
-    last_post = models.CharField(max_length = 255, blank = True)
+    created_on = models.DateTimeField(auto_now_add=True)
+    updated_on = models.DateTimeField(blank=True, null=True)
+    num_topics = models.IntegerField(default=0)
+    num_posts = models.IntegerField(default=0)
+    last_post = models.CharField(max_length=255, blank=True)
     
     class Meta:
         verbose_name = _("Forum")
         verbose_name_plural = _("Forums")
-        ordering = ('ordering','-created_on')
+        ordering = ('ordering', '-created_on')
 
     def count_nums_topic(self):
         return self.topic_set.all().count()
 
     def count_nums_post(self):
-        return self.topic_set.all().aggregate(Sum('num_replies'))['num_replies__sum'] or 0
+        return self.topic_set.all(). \
+            aggregate(Sum('num_replies'))['num_replies__sum'] or 0
 
     def get_last_post(self):
         if not self.last_post:
@@ -79,33 +83,25 @@ class Forum(models.Model):
 
     def __unicode__(self):
         return self.name 
-    
-class TopicManager(models.Manager):
-    def get_query_set(self):
-        return super(TopicManager, self).get_query_set().filter(hidden = False)
+
     
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, verbose_name=_('Forum'))
     posted_by = models.ForeignKey(User)
-    
     subject = models.CharField(max_length=999)
     num_views = models.IntegerField(default=0)
-    num_replies = models.PositiveSmallIntegerField(default = 0)#posts...
+    num_replies = models.PositiveSmallIntegerField(default=0)
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(blank = True, null = True)
-    last_reply_on = models.DateTimeField(auto_now_add = True)
-
-    last_post = models.CharField(max_length = 255, blank=True)#pickle obj
-    
-    #Moderation features
+    updated_on = models.DateTimeField(blank=True, null=True)
+    last_reply_on = models.DateTimeField(auto_now_add=True)
+    last_post = models.CharField(max_length=255, blank=True)
     closed = models.BooleanField(default=False)
     sticky = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
-    
     objects = TopicManager()
     
     class Meta:
-        ordering = ('-last_reply_on',)#'-sticky'
+        ordering = ('-last_reply_on',)
         get_latest_by = ('created_on')
         verbose_name = _("Topic")
         verbose_name_plural = _("Topics")
@@ -125,20 +121,17 @@ class Topic(models.Model):
             return {}
         return pickle.loads(b64decode(self.last_post))
         
-# Create Replies for a topic
-class Post(models.Model):#can't edit...
+
+class Post(models.Model):
     topic = models.ForeignKey(Topic, verbose_name=_('Topic'))
     posted_by = models.ForeignKey(User)
     poster_ip = models.IPAddressField()
     topic_post = models.BooleanField(default=False)
-    
-    #TODO add html/rst/..suport
     message = models.TextField()
-    attachments = models.ManyToManyField(Attachment, blank = True)
-    
+    attachments = models.ManyToManyField(Attachment, blank=True)
     created_on = models.DateTimeField(auto_now_add=True)
-    updated_on = models.DateTimeField(blank = True, null = True)
-    edited_by = models.CharField(max_length = 255, blank=True)#user name
+    updated_on = models.DateTimeField(blank=True, null = True)
+    edited_by = models.CharField(max_length=255, blank=True)
     
     class Meta:
         verbose_name = _("Post")
@@ -171,12 +164,15 @@ class Post(models.Model):#can't edit...
 
     def get_absolute_url_ext(self):
         topic = self.topic
-        post_idx = topic.post_set.filter(created_on__lte=self.created_on).count()
+        post_idx = topic.post_set.filter(created_on__lte=self.created_on). \
+            count()
         page = (post_idx - 1) / CTX_CONFIG['TOPIC_PAGE_SIZE'] + 1
         return '%s?page=%s#p%s' % (topic.get_absolute_url(), page, self.pk)
-    
+
+
 class ForumUserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='forum_profile', verbose_name=_('User'))
+    user = models.OneToOneField(User, related_name='forum_profile',
+        verbose_name=_('User'))
     last_activity = models.DateTimeField(auto_now_add=True)
     userrank = models.CharField(max_length=30,default="Junior Member")
     last_posttime = models.DateTimeField(auto_now_add=True)
@@ -190,37 +186,3 @@ class ForumUserProfile(models.Model):
 
     def get_absolute_url(self):
         return self.user.get_absolute_url()
-       
-#### smoe function ###
-
-#### do smoe connect ###
-def gen_last_post_info(post):
-    last_post = {'posted_by': post.posted_by.username, 'update': post.created_on}
-    return b64encode(pickle.dumps(last_post, pickle.HIGHEST_PROTOCOL))
-
-def create_user_profile(sender, instance, created, **kwargs):
-    if created:
-        ForumUserProfile.objects.create(user=instance)
-
-def update_topic_on_post(sender, instance, created, **kwargs):
-    if created:
-        instance.topic.last_post = gen_last_post_info(instance)
-        instance.topic.last_reply_on = instance.created_on
-        instance.topic.num_replies += 1
-        instance.topic.save()
-
-def update_forum_on_post(sender, instance, created, **kwargs):
-    if created:
-        instance.topic.forum.last_post = gen_last_post_info(instance)
-        instance.topic.forum.num_posts += 1
-        instance.topic.forum.save()
-
-def update_forum_on_topic(sender, instance, created, **kwargs):
-    if created:
-        instance.forum.num_topics += 1
-        instance.forum.save()
-
-post_save.connect(create_user_profile, sender = User)
-post_save.connect(update_topic_on_post, sender = Post)
-post_save.connect(update_forum_on_post, sender = Post)
-post_save.connect(update_forum_on_topic, sender = Topic)
