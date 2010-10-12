@@ -1,0 +1,10 @@
+{% extends "site_base.html" %}
+
+{% block title %} {{ app }} - settings {% endblock %}
+
+{% block content %}
+<form method="POST" action="">{% csrf_token %}
+    <table>{{ form.as_table }}</table>
+    <button class="submit">Save Settings</button>
+</form>
+{% endblock %}
