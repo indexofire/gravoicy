@@ -1,0 +1,65 @@
+{% load i18n %}
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?v=3.2&sensor=false&language=zh-CN"></script>
+<script type="text/javascript">
+$(document).ready(function initialize() {
+    var geocoder;
+    var map;
+    var marker;
+    var address = "{{ object.address }}, {{ object.zipcode }} {{ object.city }}";
+    var latlng;
+    {% if object.get_lat_lng %}
+    latlng = new google.maps.LatLng({{ object.lat }}, {{ object.lng }});
+    {% else %}
+    geocoder = new google.maps.Geocoder();
+    if(geocoder) {
+	geocoder.geocode({'address': address}, function(results, status) {
+	    if (status == google.maps.GeocoderStatus.OK) {
+		map.setCenter(results[0].geometry.location);
+		var marker = new google.maps.Marker({
+		    map: map,
+		    position: results[0].geometry.location
+		});
+	    } else {
+		alert("Geocode was not successful for the following reason: " + status);
+	    }
+	});
+    }
+    {% endif %}
+    var options = {
+	zoom : {{ object.zoom }},
+	center: latlng,
+	streetViewControl: false,
+	navigationControl: true,
+	navigationControlOptions: {
+	    style: google.maps.NavigationControlStyle.SMALL,
+	},
+	mapTypeControl: true,
+	mapTypeControlOptions: {
+	    style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+	},
+	mapTypeId: google.maps.MapTypeId.ROADMAP
+    }
+    map = new google.maps.Map(document.getElementById("google-map-{{ object.id }}"), options);
+});
+</script>
+<div class="plugin_googlemap">
+    <!--  ATTENTION: set a height for this div in CSS -->
+    <div id="google-map-{{ object.id }}" class="googlemap-map"></div>
+    {% if object.route_planer %}
+    <form method="get" action="http://maps.google.com/" class="googlemap-routeplaner">{% csrf_token %}
+	<p>{{ object.route_planer_title }}:</p>
+	<fieldset>
+	    <label for="saddr">{% trans "Your address" %}:</label>
+	    <input id="saddr" name="saddr" class="textinput" value="" type="text" />
+	    <input name="daddr" value="{{ object.address }}, {{ object.zipcode }} {{ object.city }}" type="hidden" />
+	    <input value="{% trans 'calculate route' %}" class="input_submit" type="submit" />
+	</fieldset>
+    </form>
+    {% endif %}
+</div>
+
+
+
+
+
+

@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_str, force_unicode
 from django.utils.safestring import mark_safe
-from content_markup.forms import MarkupContentAdminForm
+from content_ext.markup.forms import MarkupContentAdminForm
 
 
 def restructuredtext(value):
@@ -16,7 +16,7 @@ def restructuredtext(value):
     try:
         from docutils.core import publish_parts
         from docutils.parsers.rst import directives, Directive
-        from content_markup.directives.code import CodeHighlight
+        from content_ext.markup.directives.code import CodeHighlight
     except ImportError:
         if settings.DEBUG:
             raise TemplateSyntaxError("Error in content type: The Python "

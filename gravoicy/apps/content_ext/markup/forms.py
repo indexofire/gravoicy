@@ -1,15 +1,8 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-#from content_markup.models import MarkupContent
-from utils.forms.widgets import markitup
 from feincms.admin.editor import ItemEditorForm
-
-
-#class MarkupForm(forms.ModelForm):
-#    class Meta:
-#        model = MarkupContent
-#        exclude = ('markup_html',)
+from utils.forms.widgets import markitup
 
 
 class MarkupContentAdminForm(ItemEditorForm):

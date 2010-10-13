@@ -12,6 +12,7 @@ HOST_MAP = {
     'server': '',
 }
 DISPATCHER = []
+sys.path.append('%s/apps/' % PROJECT_PATH)
 
 def update_settings(config):
     """
@@ -35,4 +36,4 @@ for s in DISPATCHER:
     except ImportError:
         print "Error importing %s" % s
 
-sys.path.append('%s/apps/' % PROJECT_PATH)
+

@@ -50,6 +50,8 @@ INSTALLED_APPS += (
     'avatar',
     'userprofile',
     'pagination',
+    'notification',
+    'content_ext.googlemap',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'

@@ -10,9 +10,9 @@ from feincms.content.file.models import FileContent
 #from feincms.content.contactform.models import ContactForm
 #from feincms.content.rss.models import RSSContent
 #from feincms.content.section.models import SectionContent
-from content_markup.models import MarkupContent
-from content_chart.models import HighCharts
-from content_googlemap.models import GoogleMaps
+from content_ext.markup.models import MarkupContent
+from content_ext.chart.models import HighCharts
+from content_ext.googlemap.models import GoogleMaps
 
 
 # Example set of extensions
