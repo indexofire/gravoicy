@@ -12,7 +12,16 @@
 .markup td.linenos {
     width: 30px;
 }
-.markup table.highlighttable {
+.markup td.code {
+    margin: 0;
+    padding: 0;
+}
+.markup div.codehilite,
+.markup div.codehilite pre {
+    margin: 0;
+}
+.markup table.highlighttable,
+.markup table.codehilitetable {
     background: #FFFFFF;
     display: block;
     border: 1px solid #E6E6E6;
