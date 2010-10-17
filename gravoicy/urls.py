@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^avatar/', include('avatar.urls')),
     (r'^member/', include('userprofile.urls')),
+    (r'^account/', include('account.urls')),
     (r'^settings/', include('appsettings.urls')),
     # the FeinCMS frontend editing:
     url(r'admin/page/page/jsi18n/', 'django.views.generic.simple.redirect_to',

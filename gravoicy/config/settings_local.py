@@ -52,6 +52,8 @@ INSTALLED_APPS += (
     'pagination',
     'notification',
     'content_ext.googlemap',
+    'account',
+    'registration',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'

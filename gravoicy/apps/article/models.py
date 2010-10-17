@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from django.db import models
 from feincms.models import Base
 try:
     from mptt.models import MPTTModel
@@ -8,7 +9,13 @@ except ImportError:
     mptt_register = True
 
 
-class Article(Base):
+class Category(Base):
+    """
+    Contents different levels
+    """
+
+
+class Article(models.Model):
     """
     Contents construct via articles instead of pages.
     """
@@ -48,4 +55,4 @@ class Article(Base):
 
 
 if mptt_register:
-    mptt.register(Article)
+    mptt.register(Category)
