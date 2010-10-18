@@ -1,16 +1,23 @@
 /* code table style */
+.highlighttable, .codehilitetable, .highlight {
+    font-size: 12px;
+}
+.markup tbody,
+.markup tr {
+    display: block;
+}
 .markup td, th {
     border: 0px;
-    font-size: 12px;
-    vertical-align: middle;
+    margin: 0px;
+    vertical-align: top;
+    line-height: 16px;
 }
-.markup td {
-    padding: 0px;
-    height:26px;
-    line-height: 18px;
+.markup td div {
+    margin: 0;
 }
 .markup td.linenos {
     width: 30px;
+    margin: 0;
 }
 .markup td.code {
     margin: 0;
@@ -29,24 +36,30 @@
     width: 100%;
     margin-bottom: 10px;
 }
+.highlight,
+.codehilite {
+    margin: 0;
+    padding: 0;
+}
 /* settings for code block with no line numbers */
-.markup div.highlight pre {
+.markup div.highlight pre,
+.markup div.codehilite pre {
     background: #FFFFFF;
-    padding: 4px;
     margin: 0px;
-    color: #3C3C3C;
     border: 1px solid #E6E6E6;
-    overflow:auto;
+    overflow: auto;
+    padding: 10px 4px;
 }
 /* settings for code block with line numbers */
-.markup td.code div.highlight pre {
+.markup td.code div.highlight pre,
+.markup td.code div.codehilite pre {
     border: 0px;
 }
 /* line number setting */
 .markup td.linenos div.linenodiv {
     background: #F9FAFA;
     color: #3C3C3C;
-    padding-right: 4px;
+    padding: 10px 4px 0px 0px;
     border-right: 1px solid #E6E6E6;
     text-align: right;
     width: 30px;
