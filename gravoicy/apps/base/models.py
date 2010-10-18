@@ -28,6 +28,7 @@ Page.register_extensions(
 
 Page.register_templates(
     {
+        'key': 'base',
         'title': _('Standard Template'),
         'path': 'base.html',
         'regions': (
@@ -36,6 +37,7 @@ Page.register_templates(
         ),
     },
     {
+        'key': 'two',
         'title': _('Two Columns Page'),
         'path': 'col_two.html',
         'regions': (
@@ -44,6 +46,7 @@ Page.register_templates(
         ),
     },
     {
+        'key': 'three',
         'title': _('Three Columns Page'),
         'path': 'col_three.html',
         'regions': (
@@ -53,6 +56,7 @@ Page.register_templates(
         ),
     },
     {
+        'key': 'app',
         'title': _('Forum Page'),
         'path': 'forum.html',
         'regions': (
