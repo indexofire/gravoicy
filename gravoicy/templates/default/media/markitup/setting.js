@@ -1,4 +1,7 @@
 django.jQuery(document).ready(function() {
+    var defaults = django.jQuery("select[name^='markupcontent_set-']").val();
+    alert("defaults");
+    django.jQuery("textarea[id^='id_markupcontent_set-']").markItUp(default);
     django.jQuery("select[name^='markupcontent_set-']").change(function() {
         var id = django.jQuery(this).attr('id').replace('id_markupcontent_set-', '').replace('-markup_type','');
         var type = django.jQuery(this).val();
