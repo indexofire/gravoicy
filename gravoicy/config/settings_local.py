@@ -68,3 +68,4 @@ SITE_NAME = 'HZCDC'
 SITE_SUB_NAME = 'Labs'
 MARKUP_CODE_HIGHTLIGHT = True
 MARKITUP_JS_URL = '/media/markitup/sets/default/set.js'
+

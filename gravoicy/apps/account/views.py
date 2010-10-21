@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.conf import settings
+from django.http import Http404
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-
+from account.models import UserProfile
 #from forms import SignatureForm
+
 
 class SignatureForm(forms.Form):
     # name =  forms.CharField(label = 'Name', max_length=50)
@@ -27,13 +29,74 @@ class SignatureForm(forms.Form):
       return data
 
 @login_required
-def profile(request, user_id=None, template_name="account/profile.html"):
-    user = get_object_or_404(User, pk=user_id)
-    view_only = user != request.user
+def profile_create(request, username, template_name="account/profile_create.html"):
+
+
+@login_required
+def profile_detail(request, username, is_public=True, extra_context=None,
+                   template_name="account/profile_detail.html"):
+    """
+    Detail view of a user's profile.
+    
+    If no profile model has been specified in the 'AUTH_PROFILE_MODULE'
+    setting, 'django.contrib.auth.models.SiteProfileNotAvailable' will be
+    raised.
+    
+    If the user has not yet created a profile, 'Http404' will be raised.
+    
+    **Required arguments:**
+    
+    username
+        The username of the user whose profile is being displayed.
+    
+    **Optional arguments:**
+
+    extra_context
+        A dictionary of variables to add to the template context. Any
+        callable object in this dictionary will be called to produce
+        the end result which appears in the context.
+
+    is_public
+        The name of a 'BooleanField' on the profile model; if the
+        value of that field on the user's profile is 'False', the
+        'profile' variable in the template will be 'Non'. Use
+        this feature to allow users to mark their profiles as not
+        being publicly viewable.
+        
+        If this argument is not specified, it will be assumed that all
+        users' profiles are publicly viewable.
+    
+    template_name
+        The name of the template to use for displaying the profile. If
+        not specified, this will default to
+        :template:`profiles/profile_detail.html`.
+    
+    **Context:**
+    
+    profile
+        The user's profile, or 'None' if the user's profile is not
+        publicly viewable (see the description of 'is_public' above).
+    
+    **Template:**
+    
+    template_name
+        keyword argument or 'account/profile_detail.html'.
+    """
+    user = get_object_or_404(UserProfile, username=username)
+    try:
+        profile_obj = user.get_profile()
+    except ObjectDoesNotExist:
+        raise Http404
+
     context = {
-        'view_user': user, 
-        'view_only': view_only,
+        'profile': profile_obj,
     }
+
+    if extra_context is None:
+        extra_context = {}
+    for k, v in extra_context.items():
+        context[k] = callable(v) and v() or v
+
     return render_to_response(template_name, context, RequestContext(request))
 
 @login_required
