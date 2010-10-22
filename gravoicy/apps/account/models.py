@@ -13,7 +13,7 @@ class UserProfile(models.Model):
         (2, 'Female'),
     )
     user = models.ForeignKey(User, unique=True)
-    realname = models.CharField(
+    realname = models.CharField(max_length=255)
     gender = models.PositiveSmallIntegerField(_('gender'),
         choices=GENDER_CHOICES, blank=True, null=True)
     
@@ -21,4 +21,4 @@ class UserProfile(models.Model):
         abstract = True
 
     def __unicode__(self):
-        return u"%s" self.user.get_full_name
+        return u"%s" % self.user.get_full_name()

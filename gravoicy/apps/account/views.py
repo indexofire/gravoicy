@@ -30,7 +30,7 @@ class SignatureForm(forms.Form):
 
 @login_required
 def profile_create(request, username, template_name="account/profile_create.html"):
-
+    pass
 
 @login_required
 def profile_detail(request, username, is_public=True, extra_context=None,
