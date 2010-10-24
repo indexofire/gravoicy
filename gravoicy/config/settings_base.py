@@ -3,9 +3,7 @@ import os
 from settings import PROJECT_PATH
 
 
-ADMINS = (
-    ('Mark Renton', 'indexofire@gmail.com'),
-)
+ADMINS = ()
 MANAGERS = ADMINS
 
 SITE_ID = 1
@@ -57,3 +55,4 @@ LANGUAGES = (
     ('en', 'English'),
 )
 TINYMCE_JS_URL = MEDIA_URL + 'global/js/tiny_mce/tiny_mce.js'
+#AUTH_PROFILE_MODULE = 'account.UserProfile'

@@ -16,9 +16,10 @@ class UserProfile(models.Model):
     realname = models.CharField(max_length=255)
     gender = models.PositiveSmallIntegerField(_('gender'),
         choices=GENDER_CHOICES, blank=True, null=True)
-    
+
     class Meta:
         abstract = True
 
     def __unicode__(self):
         return u"%s" % self.user.get_full_name()
+

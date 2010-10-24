@@ -2,12 +2,12 @@
 from django import forms
 from django.conf import settings
 from django.http import Http404
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from account.models import UserProfile
-#from forms import SignatureForm
 
 
 class SignatureForm(forms.Form):
@@ -20,7 +20,7 @@ class SignatureForm(forms.Form):
         }),
         label = 'Comments', help_text = 'Optional', required = False
     )
-  
+
     def clean_content(self):
       data = self.clean_data['content']
       if "http://" in data:
@@ -37,18 +37,18 @@ def profile_detail(request, username, is_public=True, extra_context=None,
                    template_name="account/profile_detail.html"):
     """
     Detail view of a user's profile.
-    
+
     If no profile model has been specified in the 'AUTH_PROFILE_MODULE'
     setting, 'django.contrib.auth.models.SiteProfileNotAvailable' will be
     raised.
-    
+
     If the user has not yet created a profile, 'Http404' will be raised.
-    
+
     **Required arguments:**
-    
+
     username
         The username of the user whose profile is being displayed.
-    
+
     **Optional arguments:**
 
     extra_context
@@ -62,27 +62,27 @@ def profile_detail(request, username, is_public=True, extra_context=None,
         'profile' variable in the template will be 'Non'. Use
         this feature to allow users to mark their profiles as not
         being publicly viewable.
-        
+
         If this argument is not specified, it will be assumed that all
         users' profiles are publicly viewable.
-    
+
     template_name
         The name of the template to use for displaying the profile. If
         not specified, this will default to
         :template:`profiles/profile_detail.html`.
-    
+
     **Context:**
-    
+
     profile
         The user's profile, or 'None' if the user's profile is not
         publicly viewable (see the description of 'is_public' above).
-    
+
     **Template:**
-    
+
     template_name
         keyword argument or 'account/profile_detail.html'.
     """
-    user = get_object_or_404(UserProfile, username=username)
+    user = get_object_or_404(User, username=username)
     try:
         profile_obj = user.get_profile()
     except ObjectDoesNotExist:
@@ -140,3 +140,7 @@ def create(request, template_name='accounts/create.html',
         'user_form': user_form},
         context_instance=RequestContext(request))
 """
+
+@login_required
+def profile_edit(request, template_name="account/profile_edit.html"):
+    pass

@@ -5,7 +5,8 @@ from account.views import *
 
 
 urlpatterns = patterns('',
-    url(r'^(?P<user_id>\d+)/$', profile_detail, name='account_index'),
-    #url(r'^signature/$', signature, name='signature'),
     (r'^', include('registration.backends.default.urls')),
+    url(r'^(?P<username>\w+)/$', profile_detail, name='profile-detail'),
+    url(r'^(?P<username>\w+)/edit/$', profile_edit, name='profile-edit'),
+    #url(r'^$', profile_list, name='profile-list'),
 )
