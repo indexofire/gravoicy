@@ -35,7 +35,7 @@ INSTALLED_APPS += (
     'base',
     #'taggit',
     #'voting',
-    'blog',
+    #'blog',
     'forum',
     #'cms',
     #'wiki',
@@ -54,6 +54,8 @@ INSTALLED_APPS += (
     'content_ext.googlemap',
     'account',
     'registration',
+    'categories',
+    'editor',
 )
 FEINCMS_TREE_EDITOR_INCLUDE_ANCESTORS = True
 #SESSION_ENGINE = 'utils.sessions.backends.redis'
