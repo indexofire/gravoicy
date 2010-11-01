@@ -2,7 +2,6 @@
 from django import forms
 from django.conf import settings
 from django.db.models import get_model
-
 from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import Http404, HttpResponseRedirect
