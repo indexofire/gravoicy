@@ -15,7 +15,8 @@ urlpatterns = patterns('',
     (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^avatar/', include('avatar.urls')),
     (r'^member/', include('userprofile.urls')),
-    (r'^account/', include('account.urls')),
+    #(r'^account/', include('account.urls')),
+    (r'^account/', include('registration.backends.default.urls')),
     (r'^settings/', include('appsettings.urls')),
     # the FeinCMS frontend editing:
     url(r'admin/page/page/jsi18n/', 'django.views.generic.simple.redirect_to',
@@ -23,7 +24,7 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
     url(r'^preview/(?P<page_id>\d+)/', 'feincms.views.base.preview_handler',
         name='feincms:preview'),
-    (r'^attachment/', include('attachments.urls')),
+    (r'^attachment/', include('attachment.urls')),
     # This entry is here strictly for application content testing
     # XXX this really needs to go into a URLconf file which is only used by the
     # application content testcases

@@ -13,6 +13,7 @@ HOST_MAP = {
 }
 DISPATCHER = []
 sys.path.append('%s/apps/' % PROJECT_PATH)
+sys.path.append('%s/libs/' % PROJECT_PATH)
 
 def update_settings(config):
     """

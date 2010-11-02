@@ -11,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.db.models import Sum
 from forum.settings import *
 from forum.managers import TopicManager
-from attachments.models import Attachment
+from attachment.models import Attachment
 
 
 __all__ = [
@@ -33,15 +33,15 @@ class ForumCategory(models.Model):
     """
     name = models.CharField(max_length=100)
     description = models.TextField(default='Category Description')
-    ordering = models.PositiveIntegerField(default=1)    
+    ordering = models.PositiveIntegerField(default=1)
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(blank=True, null=True)
-    
+
     class Meta:
         verbose_name = _("Category")
         verbose_name_plural = _("Categories")
         ordering = ('-ordering', 'created_on')
-        
+
     def __unicode__(self):
         return self.name
 
@@ -59,7 +59,7 @@ class Forum(models.Model):
     num_topics = models.IntegerField(default=0)
     num_posts = models.IntegerField(default=0)
     last_post = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         verbose_name = _("Forum")
         verbose_name_plural = _("Forums")
@@ -76,15 +76,15 @@ class Forum(models.Model):
         if not self.last_post:
             return {}
         return pickle.loads(b64decode(self.last_post))
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('forum_forum', (), {'forum_slug': self.slug})
 
     def __unicode__(self):
-        return self.name 
+        return self.name
 
-    
+
 class Topic(models.Model):
     forum = models.ForeignKey(Forum, verbose_name=_('Forum'))
     posted_by = models.ForeignKey(User)
@@ -99,28 +99,28 @@ class Topic(models.Model):
     sticky = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
     objects = TopicManager()
-    
+
     class Meta:
         ordering = ('-last_reply_on',)
         get_latest_by = ('created_on')
         verbose_name = _("Topic")
         verbose_name_plural = _("Topics")
-        
+
     def __unicode__(self):
         return self.subject
 
     def count_nums_replies(self):
         return self.post_set.all().count()
-    
+
     @models.permalink
     def get_absolute_url(self):
         return ('forum_topic', (), {'topic_id': self.id})
-    
+
     def get_last_post(self):
         if not self.last_post:
             return {}
         return pickle.loads(b64decode(self.last_post))
-        
+
 
 class Post(models.Model):
     topic = models.ForeignKey(Topic, verbose_name=_('Topic'))
@@ -132,16 +132,16 @@ class Post(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     updated_on = models.DateTimeField(blank=True, null = True)
     edited_by = models.CharField(max_length=255, blank=True)
-    
+
     class Meta:
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
         ordering = ('-created_on',)
         get_latest_by = ('created_on', )
-        
+
     def __unicode__(self):
         return self.message[:80]
-    
+
     def subject(self):
         if self.topic_post:
             return _('Topic: %s') % self.topic.subject
@@ -177,10 +177,10 @@ class ForumUserProfile(models.Model):
     userrank = models.CharField(max_length=30,default="Junior Member")
     last_posttime = models.DateTimeField(auto_now_add=True)
     signature = models.CharField(max_length = 1000, blank = True)
-    
+
     def __unicode__(self):
         return self.user.username
-    
+
     def get_total_posts(self):
         return self.user.post_set.count()
 
