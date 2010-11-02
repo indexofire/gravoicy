@@ -44,15 +44,14 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.comments',
 )
-THEME_PATH = 'default'
+THEME_NAME = 'default'
 TEMPLATE_DIRS = (
-    #os.path.join(PROJECT_PATH, 'templates/'),
-    os.path.join(PROJECT_PATH, 'templates/%s/templates/' % THEME_PATH),
+    os.path.join(PROJECT_PATH, 'templates/%s/templates/' % THEME_NAME),
 )
-MEDIA_ROOT = os.path.join(PROJECT_PATH, 'templates/%s/media/' % THEME_PATH)
+MEDIA_ROOT = os.path.join(PROJECT_PATH, 'templates/%s/media/' % THEME_NAME)
 LANGUAGES = (
     ('zh-cn', 'Chinese'),
-    ('en', 'English'),
+    ('en-us', 'English'),
 )
 TINYMCE_JS_URL = MEDIA_URL + 'global/js/tiny_mce/tiny_mce.js'
-#AUTH_PROFILE_MODULE = 'account.UserProfile'
+AUTH_PROFILE_MODULE = 'account.UserProfile'
