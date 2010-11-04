@@ -39,4 +39,4 @@ class Attachment(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return '%s|%s' % (self.user.username, self.orginal_filename)
+        return '%s|%s' % (self.user.username, self.original_filename)
