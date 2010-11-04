@@ -23,3 +23,27 @@ class UserProfile(models.Model):
     def __unicode__(self):
         return u"%s" % self.user.get_full_name()
 
+
+class ProfileBase(models.Model):
+    """
+    Root class for extending other custom profile models.
+    """
+    name = models.CharField(max_length=255)
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta:
+        abstract = True
+        ordering = ['name']
+        verbose_name = _('User Profile')
+        verbose_name_plural = _('User Profiles')
+
+    def save(self, *args, **kwargs):
+        pass
+
+    @classmethod
+    def register_profile(cls, model, **kwargs):
+        pass
+
+    

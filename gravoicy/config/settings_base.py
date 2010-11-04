@@ -54,4 +54,4 @@ LANGUAGES = (
     ('en-us', 'English'),
 )
 TINYMCE_JS_URL = MEDIA_URL + 'global/js/tiny_mce/tiny_mce.js'
-AUTH_PROFILE_MODULE = 'account.UserProfile'
+AUTH_PROFILE_MODULE = 'account.Profile'

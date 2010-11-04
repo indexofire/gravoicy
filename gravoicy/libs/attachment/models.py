@@ -33,7 +33,7 @@ class Attachment(models.Model):
     user = models.ForeignKey(User, verbose_name=_('Attachment Owner'))
     attachment = models.FileField(max_length=255,
         upload_to=upload_attachment_file_path)
-    orginal_filename = models.TextField(default='')
+    original_filename = models.TextField(default='')
     description = models.TextField(default='file description', blank=True)
     activated = models.BooleanField(default=False)
     date_uploaded = models.DateTimeField(auto_now_add=True)

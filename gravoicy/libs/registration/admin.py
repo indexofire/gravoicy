@@ -1,8 +1,8 @@
+# -*- coding: utf-8 -*-
 from django.contrib import admin
 from django.contrib.sites.models import RequestSite
 from django.contrib.sites.models import Site
 from django.utils.translation import ugettext_lazy as _
-
 from registration.models import RegistrationProfile
 
 
@@ -41,6 +41,5 @@ class RegistrationAdmin(admin.ModelAdmin):
             if not profile.activation_key_expired():
                 profile.send_activation_email(site)
     resend_activation_email.short_description = _("Re-send activation emails")
-
 
 admin.site.register(RegistrationProfile, RegistrationAdmin)

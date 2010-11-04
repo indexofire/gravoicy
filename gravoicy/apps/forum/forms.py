@@ -3,7 +3,7 @@ from datetime import datetime
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from forum.models import Topic, Post
-from attachments.models import Attachment
+from attachment.models import Attachment
 
 
 class PostForm(forms.ModelForm):

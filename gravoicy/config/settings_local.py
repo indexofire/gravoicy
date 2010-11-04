@@ -48,7 +48,7 @@ INSTALLED_APPS += (
     'attachment',
     #'simpleavatar',
     'avatar',
-    'userprofile',
+    #'userprofile',
     'pagination',
     'notification',
     'content_ext.googlemap',
