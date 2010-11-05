@@ -12,7 +12,8 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^favicon\.ico$', redirect_to, {'url': '/media/favicon.ico'}),
-    (r'^robots\.txt$', direct_to_template, {'template': 'robots.txt', 'mimetype': 'text/plain'}),
+    (r'^robots\.txt$', direct_to_template,
+        {'template': 'robots.txt', 'mimetype': 'text/plain'}),
     (r'^avatar/', include('avatar.urls')),
     #(r'^member/', include('userprofile.urls')),
     (r'^accounts/', include('account.urls')),
@@ -31,18 +32,9 @@ urlpatterns = patterns('',
     url(r'^category/', include('categories.urls')),
     url(r'^$|^(.*)/$', 'feincms.views.applicationcontent.handler'),
 )
-#urlpatterns = patterns('',
-    #(r'^admin/', include(admin.site.urls)),
-    #(r'^blog/', include('blog.urls')),
-    #(r'^cms/', include('cms.urls')),
-    #(r'^forum/', include('forum.urls')),
-    #(r'^wiki/', include('wiki.urls')),
-#)
 
 if settings.DEBUG:
-	urlpatterns += patterns('',
-	    url(r'^media/(?P<path>.*)$',
-            'django.views.static.serve',
-            {'document_root': settings.MEDIA_ROOT,},
-        ),
+    urlpatterns += patterns('',
+	url(r'^media/(?P<path>.*)$', 'django.views.static.serve',
+	    {'document_root': settings.MEDIA_ROOT,}),
     )

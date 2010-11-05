@@ -15,3 +15,18 @@ ElementTree
 
 django-debug-toolbar
 PIL
+
+
+[requirements]
+django-registration
+django-taggit
+PIL
+docutils
+pygments
+postmarkup
+markdown
+textile
+BeautifulSoup
+cElementTree/ElementTree
+django-debug-toolbar
+django-appsettings

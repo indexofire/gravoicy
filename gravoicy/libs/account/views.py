@@ -240,4 +240,9 @@ def create(request, template_name='accounts/create.html',
 
 @login_required
 def profile_edit(request, template_name="account/profile_edit.html"):
-    pass
+    return render_to_response(template_name, {}, RequestContext(request))
+
+@login_required
+def profile_list(request, template_name="account/profile_list.html"):
+    return render_to_response(template_name, {'name': request.user.username},
+        RequestContext(request))
