@@ -36,5 +36,3 @@ for s in DISPATCHER:
         update_settings(s)
     except ImportError:
         print "Error importing %s" % s
-
-
