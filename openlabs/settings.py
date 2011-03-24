@@ -1,4 +1,10 @@
-# Django settings for openlabs project.
+# -*- coding: utf-8 -*-
+import os
+import sys
+
+APPLICATION_DIR = 'apps'
+PROJECT_PATH = os.path.abspath(os.path.dirname(__file__))
+sys.path.append('%s/%s/' % PROJECT_PATH APPLICATION_DIR)
 
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
